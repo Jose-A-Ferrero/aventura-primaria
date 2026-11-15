@@ -42,7 +42,11 @@
         <span class="text-3xl p-1.5 bg-gradient-to-tr from-amber-400 to-indigo-500 rounded-2xl shadow text-white group-hover:scale-105 transition-transform">🚀</span>
         <div>
           <span class="font-black text-lg md:text-xl text-slate-900 tracking-tight flex items-center gap-1.5">
-            Aventura del Saber <span class="text-xs bg-indigo-600 text-white font-extrabold px-2 py-0.5 rounded-full">2º Primaria</span>
+            Aventura del Saber <button onclick="event.stopPropagation(); app.openGradeSelector()" class="text-xs bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold px-2.5 py-1 rounded-full flex items-center gap-1 shadow transition-transform active:scale-95" title="Pulsa para cambiar de curso (1º a 6º)">
+            <span id="header-grade-icon">🚀</span>
+            <span id="header-grade-name">2º Primaria</span>
+            <span class="text-[10px]">▼</span>
+          </button>
           </span>
           <span id="player-level-badge" class="block text-xs font-bold text-indigo-700">Nivel 1 • Novato Curioso 🌱</span>
         </div>

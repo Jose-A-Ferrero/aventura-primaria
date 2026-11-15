@@ -1,9 +1,376 @@
 /**
- * CURRÍCULO OFICIAL DE 2º DE EDUCACIÓN PRIMARIA (LOMLOE)
- * Base de datos de contenidos pedagógicos: Explicaciones, Minijuegos y Tests
+ * CURRÍCULO COMPLETO DE EDUCACIÓN PRIMARIA (1º A 6º CURSO) - LOMLOE
+ * Sistema Multi-Curso con selector de grado, explicaciones, minijuegos y tests.
  */
 
-const CURRICULUM_DATA = {
+const CURRICULUM_GRADES = {
+  1: {
+    grade: 1,
+    name: "1º de Primaria",
+    age: "6-7 años",
+    icon: "🌱",
+    color: "#10b981",
+    tagline: "¡Mis primeros pasos en el cole!",
+    subjects: {
+      matematicas: {
+        id: "matematicas",
+        title: "Matemáticas Divertidas",
+        shortTitle: "Matemáticas",
+        icon: "🔢",
+        themeColor: "from-amber-400 to-orange-500",
+        accentColor: "#f59e0b",
+        badge: "Contador Estrella",
+        description: "¡Números hasta el 99, sumas y restas sencillas y figuras geométricas!",
+        topics: [
+          {
+            id: "g1_m1",
+            title: "Números hasta el 99: Decenas y Unidades",
+            icon: "🔟",
+            explanation: {
+              intro: "¡Hola, campeón de 1º! Los números del 0 al 99 se forman con Unidades (U) y Decenas (D).",
+              sections: [
+                {
+                  heading: "¿Qué es una decena?",
+                  body: "• 1 Decena es un grupito de 10 unidades juntas (como tus 10 dedos de las manos).\n• Por ejemplo, el número 24 tiene 2 Decenas (20) y 4 Unidades (4).",
+                  visual: "24 = 2 D + 4 U (20 + 4)"
+                },
+                {
+                  heading: "Contar de 10 en 10",
+                  body: "¡Es súper fácil!: 10, 20, 30, 40, 50, 60, 70, 80, 90 y ¡100!",
+                  visual: "10 ➡️ 20 ➡️ 30 ➡️ 40 ➡️ 50"
+                }
+              ],
+              tip: "¡El número anterior es el que va antes (-1) y el posterior el que va después (+1)!"
+            },
+            minigame: {
+              type: "classification",
+              instruction: "Clasifica los números según su decena:",
+              categories: [
+                { id: "c1", name: "Familia del 20 (2D)" },
+                { id: "c2", name: "Familia del 40 (4D)" },
+                { id: "c3", name: "Familia del 60 (6D)" }
+              ],
+              items: [
+                { id: "i1", text: "23", category: "c1" },
+                { id: "i2", text: "45", category: "c2" },
+                { id: "i3", text: "68", category: "c3" },
+                { id: "i4", text: "29", category: "c1" },
+                { id: "i5", text: "41", category: "c2" },
+                { id: "i6", text: "62", category: "c3" }
+              ]
+            },
+            test: [
+              {
+                question: "¿Cuántas unidades hay en 2 decenas?",
+                options: ["2 unidades", "20 unidades", "12 unidades", "200 unidades"],
+                correct: 1,
+                feedback: "¡Muy bien! 1 decena son 10, así que 2 decenas son 20."
+              },
+              {
+                question: "¿Cuál es el número posterior a 39?",
+                options: ["38", "40", "41", "30"],
+                correct: 1,
+                feedback: "¡Genial! 39 + 1 = 40."
+              },
+              {
+                question: "¿Qué número tiene 5 Decenas y 3 Unidades?",
+                options: ["35", "53", "503", "8"],
+                correct: 1,
+                feedback: "¡Eso es! 50 + 3 = 53."
+              }
+            ]
+          },
+          {
+            id: "g1_m2",
+            title: "Sumas y Restas Sencillas (sin llevada)",
+            icon: "➕",
+            explanation: {
+              intro: "Sumar es juntar cosas en una misma cesta y restar es quitar o comerse galletas.",
+              sections: [
+                {
+                  heading: "Sumar es añadir",
+                  body: "Si tienes 4 caramelos y te dan 3 más: 4 + 3 = 7 caramelos.",
+                  visual: "4 + 3 = 7"
+                },
+                {
+                  heading: "Restar es quitar",
+                  body: "Si tienes 8 globos y explotan 2: 8 - 2 = 6 globos.",
+                  visual: "8 - 2 = 6"
+                }
+              ],
+              tip: "¡Puedes usar tus dedos o contar hacia delante para sumar y hacia atrás para restar!"
+            },
+            minigame: {
+              type: "matching",
+              instruction: "Empareja cada operación con su resultado:",
+              pairs: [
+                { a: "5 + 4", b: "9" },
+                { a: "7 + 3", b: "10" },
+                { a: "8 - 3", b: "5" },
+                { a: "10 - 4", b: "6" },
+                { a: "6 + 6", b: "12" }
+              ]
+            },
+            test: [
+              {
+                question: "¿Cuánto es 6 + 3?",
+                options: ["8", "9", "10", "7"],
+                correct: 1,
+                feedback: "¡Fantástico! 6 + 3 = 9."
+              },
+              {
+                question: "Tienes 10 lápices y prestas 2. ¿Cuántos te quedan?",
+                options: ["8 lápices", "12 lápices", "5 lápices", "7 lápices"],
+                correct: 0,
+                feedback: "¡Exacto! 10 - 2 = 8 lápices."
+              },
+              {
+                question: "¿Cuánto es 14 + 5?",
+                options: ["18", "19", "20", "17"],
+                correct: 1,
+                feedback: "¡Bravo! 14 + 5 = 19."
+              }
+            ]
+          }
+        ]
+      },
+      lengua: {
+        id: "lengua",
+        title: "Mundo de las Letras",
+        shortTitle: "Lengua Castellana",
+        icon: "📚",
+        themeColor: "from-blue-500 to-indigo-600",
+        accentColor: "#3b82f6",
+        badge: "Pequeño Lector",
+        description: "¡Descubre las vocales, consonantes, mayúsculas y las primeras palabras mágicas!",
+        topics: [
+          {
+            id: "g1_l1",
+            title: "Las Vocales y las Sílabas",
+            icon: "🔤",
+            explanation: {
+              intro: "Las letras son como piezas de un puzle. ¡Juntándolas formamos palabras preciosas!",
+              sections: [
+                {
+                  heading: "Las 5 Vocales Mágicas",
+                  body: "Son las reinas de las palabras: A, E, I, O, U.\n¡Todas las palabras tienen al menos una vocal!",
+                  visual: "A - E - I - O - U"
+                },
+                {
+                  heading: "Las Sílabas con M, P, S, L",
+                  body: "M con A = MA, P con A = PA. ¡Mamá y Papá!",
+                  visual: "M + A = MA | P + A = PA"
+                }
+              ],
+              tip: "¡Canta la canción del abecedario para recordar el orden de las letras!"
+            },
+            minigame: {
+              type: "classification",
+              instruction: "Clasifica cada letra: ¿es Vocal o Consonante?",
+              categories: [
+                { id: "vocal", name: "Vocal (A E I O U)" },
+                { id: "consonante", name: "Consonante" }
+              ],
+              items: [
+                { id: "l1", text: "A", category: "vocal" },
+                { id: "l2", text: "M", category: "consonante" },
+                { id: "l3", text: "E", category: "vocal" },
+                { id: "l4", text: "P", category: "consonante" },
+                { id: "l5", text: "I", category: "vocal" },
+                { id: "l6", text: "S", category: "consonante" }
+              ]
+            },
+            test: [
+              {
+                question: "¿Cuántas vocales tenemos en español?",
+                options: ["3 vocales", "5 vocales", "10 vocales", "7 vocales"],
+                correct: 1,
+                feedback: "¡Genial! Son 5: A, E, I, O, U."
+              },
+              {
+                question: "¿Qué letra falta en 'P_LO'? (Pelota)",
+                options: ["E", "Z", "M", "K"],
+                correct: 0,
+                feedback: "¡Muy bien! P-E-L-O."
+              },
+              {
+                question: "¿Cuál de estas letras es una vocal?",
+                options: ["T", "O", "R", "L"],
+                correct: 1,
+                feedback: "¡Exacto! La O es una vocal."
+              }
+            ]
+          }
+        ]
+      },
+      ciencias_naturales: {
+        id: "ciencias_naturales",
+        title: "Exploradores de la Naturaleza",
+        shortTitle: "Ciencias Naturales",
+        icon: "🌿",
+        themeColor: "from-emerald-500 to-green-600",
+        accentColor: "#10b981",
+        badge: "Amigo de los Animales",
+        description: "¡Seres vivos y seres inertes, animales y cuidado del cuerpo!",
+        topics: [
+          {
+            id: "g1_n1",
+            title: "Seres Vivos y Seres Inertes",
+            icon: "🐾",
+            explanation: {
+              intro: "En nuestro planeta hay seres con vida y objetos sin vida.",
+              sections: [
+                {
+                  heading: "Seres Vivos",
+                  body: "Nacen, crecen, se alimentan y respiran (personas, perros, pájaros, plantas).",
+                  visual: "🌱 Planta | 🐶 Perro | 👦 Niño"
+                },
+                {
+                  heading: "Seres Inertes",
+                  body: "No comen ni respiran (rocas, agua, juguetes, coches).",
+                  visual: "🪨 Roca | 🚗 Coche | ⚽ Pelota"
+                }
+              ],
+              tip: "¡Las plantas no corren pero están vivas porque beben agua y crecen!"
+            },
+            minigame: {
+              type: "classification",
+              instruction: "¿Es un Ser Vivo o un Objeto Inerte?",
+              categories: [
+                { id: "vivo", name: "Ser Vivo 🌱" },
+                { id: "inerte", name: "Objeto Inerte 🪨" }
+              ],
+              items: [
+                { id: "sv1", text: "Cachorro", category: "vivo" },
+                { id: "sv2", text: "Peluche", category: "inerte" },
+                { id: "sv3", text: "Árbol", category: "vivo" },
+                { id: "sv4", text: "Piedra", category: "inerte" }
+              ]
+            },
+            test: [
+              {
+                question: "¿Cuál de estos es un SER VIVO?",
+                options: ["Una piedra", "Un árbol", "Un tenedor", "Una libreta"],
+                correct: 1,
+                feedback: "¡Exacto! El árbol es una planta con vida."
+              },
+              {
+                question: "¿Qué necesitan las personas y los animales para vivir?",
+                options: ["Comer y beber agua", "Ver la televisión", "Patinar", "Dormir en el coche"],
+                correct: 0,
+                feedback: "¡Muy bien! Agua, alimento y aire."
+              }
+            ]
+          }
+        ]
+      },
+      ciencias_sociales: {
+        id: "ciencias_sociales",
+        title: "Mi Entorno y el Mundo",
+        shortTitle: "Ciencias Sociales",
+        icon: "🌍",
+        themeColor: "from-sky-500 to-cyan-600",
+        accentColor: "#0284c7",
+        badge: "Buen Ciudadano",
+        description: "¡La familia, la casa, la escuela y el paso del tiempo!",
+        topics: [
+          {
+            id: "g1_s1",
+            title: "La Familia y la Casa",
+            icon: "🏡",
+            explanation: {
+              intro: "Nuestra casa es el hogar donde convivimos y nos cuidamos con nuestra familia.",
+              sections: [
+                {
+                  heading: "Las Habitaciones",
+                  body: "• Cocina: Preparamos la comida rica.\n• Dormitorio: Para descansar y dormir por la noche.\n• Baño: Para lavarse y cepillarse los dientes.",
+                  visual: "Cocina 🍳 | Baño 🪥 | Cama 🛏️"
+                }
+              ],
+              tip: "¡Ayudar a recoger tus juguetes hace muy feliz a tu familia!"
+            },
+            minigame: {
+              type: "matching",
+              instruction: "Empareja cada objeto con su habitación:",
+              pairs: [
+                { a: "Sartén", b: "Cocina 🍳" },
+                { a: "Cama", b: "Dormitorio 🛏️" },
+                { a: "Cepillo de dientes", b: "Baño 🪥" }
+              ]
+            },
+            test: [
+              {
+                question: "¿En qué habitación nos lavamos los dientes?",
+                options: ["En la cocina", "En el cuarto de baño", "En el garaje", "En el balcón"],
+                correct: 1,
+                feedback: "¡Eso es! En el cuarto de baño."
+              }
+            ]
+          }
+        ]
+      },
+      ingles: {
+        id: "ingles",
+        title: "English Fun 1st Grade",
+        shortTitle: "Inglés",
+        icon: "🇬🇧",
+        themeColor: "from-rose-500 to-pink-600",
+        accentColor: "#e11d48",
+        badge: "Hello English!",
+        description: "¡Colores, números del 1 al 10 y tus primeros saludos en inglés!",
+        topics: [
+          {
+            id: "g1_i1",
+            title: "Colors & Numbers (1 to 10)",
+            icon: "🎨",
+            explanation: {
+              intro: "Welcome to English! ¡Vamos a aprender los primeros colores y números!",
+              sections: [
+                {
+                  heading: "Numbers 1 to 5",
+                  body: "1: One, 2: Two, 3: Three, 4: Four, 5: Five!",
+                  visual: "1, 2, 3, 4, 5"
+                },
+                {
+                  heading: "Main Colors",
+                  body: "• Red: Rojo 🔴\n• Blue: Azul 🔵\n• Yellow: Amarillo 🟡\n• Green: Verde 🟢",
+                  visual: "Red, Blue, Yellow, Green"
+                }
+              ],
+              tip: "Say 'Hello' to greet and 'Goodbye' when you leave!"
+            },
+            minigame: {
+              type: "matching",
+              instruction: "Match the English word with Spanish:",
+              pairs: [
+                { a: "Red", b: "Rojo" },
+                { a: "Blue", b: "Azul" },
+                { a: "One (1)", b: "Uno" },
+                { a: "Yellow", b: "Amarillo" }
+              ]
+            },
+            test: [
+              {
+                question: "How do you say 'Hola' in English?",
+                options: ["Goodbye", "Hello", "Night", "Red"],
+                correct: 1,
+                feedback: "Great! Hello means ¡Hola!"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+
+  2: {
+    grade: 2,
+    name: "2º de Primaria",
+    age: "7-8 años",
+    icon: "🚀",
+    color: "#f59e0b",
+    tagline: "¡Despegando hacia nuevos retos!",
+    subjects: {
   matematicas: {
     id: "matematicas",
     title: "Matemáticas Mágicas",
@@ -1741,4 +2108,1096 @@ const CURRICULUM_DATA = {
       }
     ]
   }
+}
+  },
+
+  3: {
+    grade: 3,
+    name: "3º de Primaria",
+    age: "8-9 años",
+    icon: "⭐",
+    color: "#3b82f6",
+    tagline: "¡Tablas de multiplicar, división y ecosistemas!",
+    subjects: {
+      matematicas: {
+        id: "matematicas",
+        title: "Matemáticas en Acción",
+        shortTitle: "Matemáticas",
+        icon: "🔢",
+        themeColor: "from-amber-400 to-orange-500",
+        accentColor: "#f59e0b",
+        badge: "Gran Calculador",
+        description: "¡Números de 4 cifras (hasta 9.999), todas las tablas de multiplicar, división y polígonos!",
+        topics: [
+          {
+            id: "g3_m1",
+            title: "Las Tablas de Multiplicar del 1 al 10",
+            icon: "✖️",
+            explanation: {
+              intro: "En 3º dominamos todas las tablas de multiplicar. Multiplicar es sumar varias veces el mismo número.",
+              sections: [
+                {
+                  heading: "Tablas del 6, 7, 8 y 9",
+                  body: "• 6 x 7 = 42\n• 7 x 8 = 56\n• 8 x 8 = 64\n• 9 x 9 = 81\n• Truco del 9: Las decenas suben y las unidades bajan (09, 18, 27, 36, 45, 54...).",
+                  visual: "7 x 8 = 56 | 9 x 4 = 36"
+                }
+              ],
+              tip: "¡Propiedad conmutativa! 6 x 8 es lo mismo que 8 x 6 = 48."
+            },
+            minigame: {
+              type: "bubble_hunter",
+              instruction: "Toca las multiplicaciones con resultado correcto:",
+              bubbles: [
+                { text: "7 x 6 = 42", correct: true },
+                { text: "8 x 8 = 64", correct: true },
+                { text: "9 x 5 = 45", correct: true },
+                { text: "7 x 7 = 50", correct: false },
+                { text: "6 x 9 = 54", correct: true },
+                { text: "8 x 7 = 58", correct: false }
+              ]
+            },
+            test: [
+              {
+                question: "¿Cuánto es 7 x 8?",
+                options: ["54", "56", "58", "64"],
+                correct: 1,
+                feedback: "¡Genial! 7 x 8 = 56."
+              },
+              {
+                question: "¿Cuánto es 9 x 7?",
+                options: ["63", "72", "54", "61"],
+                correct: 0,
+                feedback: "¡Excelente! 9 x 7 = 63."
+              },
+              {
+                question: "¿Qué multiplicación da como resultado 48?",
+                options: ["6 x 8", "7 x 7", "9 x 5", "6 x 7"],
+                correct: 0,
+                feedback: "¡Muy bien! 6 x 8 = 48."
+              }
+            ]
+          },
+          {
+            id: "g3_m2",
+            title: "Iniciación a la División (Reparto Igual)",
+            icon: "➗",
+            explanation: {
+              intro: "Dividir es repartir una cantidad en partes exactamente iguales.",
+              sections: [
+                {
+                  heading: "Términos de la división",
+                  body: "• Dividendo: La cantidad a repartir (ej. 15 caramelos).\n• Divisor: Entre cuántos repartes (ej. 3 amigos).\n• Cociente: Cuántos tocan a cada uno (15 ÷ 3 = 5).\n• Resto: Lo que sobra (si es 0, la división es exacta).",
+                  visual: "15 ÷ 3 = 5 (Resto 0)"
+                }
+              ],
+              tip: "¡Dividir es lo contrario de multiplicar! Si 4 x 5 = 20, entonces 20 ÷ 5 = 4."
+            },
+            minigame: {
+              type: "matching",
+              instruction: "Empareja cada división con su cociente:",
+              pairs: [
+                { a: "24 ÷ 6", b: "4" },
+                { a: "35 ÷ 5", b: "7" },
+                { a: "18 ÷ 2", b: "9" },
+                { a: "30 ÷ 10", b: "3" },
+                { a: "40 ÷ 8", b: "5" }
+              ]
+            },
+            test: [
+              {
+                question: "Si repartes 20 galletas entre 4 amigos a partes iguales, ¿cuántas recibe cada uno?",
+                options: ["4 galletas", "5 galletas", "6 galletas", "10 galletas"],
+                correct: 1,
+                feedback: "¡Perfecto! 20 ÷ 4 = 5 galletas."
+              },
+              {
+                question: "En la división 18 ÷ 2 = 9, ¿cuál es el cociente?",
+                options: ["18", "2", "9", "0"],
+                correct: 2,
+                feedback: "¡Exacto! El cociente es el resultado: 9."
+              }
+            ]
+          }
+        ]
+      },
+      lengua: {
+        id: "lengua",
+        title: "Lengua y Gramática",
+        shortTitle: "Lengua Castellana",
+        icon: "📚",
+        themeColor: "from-blue-500 to-indigo-600",
+        accentColor: "#3b82f6",
+        badge: "Gramático Experto",
+        description: "¡Artículos, sustantivos, la sílaba tónica y palabras agudas, llanas y esdrújulas!",
+        topics: [
+          {
+            id: "g3_l1",
+            title: "La Sílaba Tónica y Clases de Palabras",
+            icon: "🗣️",
+            explanation: {
+              intro: "En todas las palabras hay una sílaba que suena con más fuerza: ¡la sílaba tónica!",
+              sections: [
+                {
+                  heading: "Agudas, Llanas y Esdrújulas",
+                  body: "• AGUDAS: La fuerza está en la ÚLTIMA sílaba (ca-fé, can-ción, pa-pel).\n• LLANAS: La fuerza está en la PENÚLTIMA sílaba (me-sa, ár-bol, li-bro).\n• ESDRÚJULAS: La fuerza está en la ANTEPENÚLTIMA sílaba y ¡siempre llevan tilde! (pá-ja-ro, mú-si-ca).",
+                  visual: "Esdrújula | Llana | Aguda"
+                }
+              ],
+              tip: "¡Da una palmada en la sílaba que suena más fuerte para encontrar la tónica!"
+            },
+            minigame: {
+              type: "classification",
+              instruction: "Clasifica cada palabra: ¿es Aguda, Llana o Esdrújula?",
+              categories: [
+                { id: "aguda", name: "Aguda (Última)" },
+                { id: "llana", name: "Llana (Penúltima)" },
+                { id: "esdrujula", name: "Esdrújula (Antepenúltima)" }
+              ],
+              items: [
+                { id: "w1", text: "camión", category: "aguda" },
+                { id: "w2", text: "ventana", category: "llana" },
+                { id: "w3", text: "teléfono", category: "esdrujula" },
+                { id: "w4", text: "reloj", category: "aguda" },
+                { id: "w5", text: "lápiz", category: "llana" },
+                { id: "w6", text: "plátano", category: "esdrujula" }
+              ]
+            },
+            test: [
+              {
+                question: "Las palabras esdrújulas llevan tilde...",
+                options: ["Solo si terminan en vocal", "Nunca", "Siempre", "Solo los domingos"],
+                correct: 2,
+                feedback: "¡Exacto! Las esdrújulas llevan tilde siempre (médico, lámpara)."
+              },
+              {
+                question: "¿Cuál de estas palabras es AGUDA?",
+                options: ["Árbol", "Balón", "Coche", "Música"],
+                correct: 1,
+                feedback: "¡Muy bien! Ba-lón lleva la fuerza en la última sílaba."
+              }
+            ]
+          }
+        ]
+      },
+      ciencias_naturales: {
+        id: "ciencias_naturales",
+        title: "Ciencias de la Naturaleza",
+        shortTitle: "Ciencias Naturales",
+        icon: "🌿",
+        themeColor: "from-emerald-500 to-green-600",
+        accentColor: "#10b981",
+        badge: "Biólogo Junior",
+        description: "¡Los ecosistemas, las cadenas alimentarias y los aparatos digestivo y respiratorio!",
+        topics: [
+          {
+            id: "g3_n1",
+            title: "Aparatos Digestivo y Respiratorio",
+            icon: "🫁",
+            explanation: {
+              intro: "Para vivir necesitamos obtener nutrientes de los alimentos y oxígeno del aire.",
+              sections: [
+                {
+                  heading: "El Aparato Digestivo",
+                  body: "Boca (dientes mastican) ➡️ Esófago ➡️ Estómago (jugos gástricos) ➡️ Intestinos (absorben nutrientes).",
+                  visual: "Boca 👄 ➡️ Estómago 🫄 ➡️ Intestino"
+                },
+                {
+                  heading: "El Aparato Respiratorio",
+                  body: "Tomamos oxígeno del aire por la nariz o boca, pasa por la tráquea y llega a los Pulmones.",
+                  visual: "Pulmones 🫁 = Oxígeno"
+                }
+              ],
+              tip: "¡El corazón es un músculo que nunca descansa y bombea la sangre a todo el cuerpo!"
+            },
+            minigame: {
+              type: "matching",
+              instruction: "Empareja cada órgano con su aparato correspondiente:",
+              pairs: [
+                { a: "Estómago", b: "Aparato Digestivo" },
+                { a: "Pulmones", b: "Aparato Respiratorio" },
+                { a: "Intestinos", b: "Aparato Digestivo" },
+                { a: "Tráquea", b: "Aparato Respiratorio" }
+              ]
+            },
+            test: [
+              {
+                question: "¿Qué órganos principales se encargan de tomar el oxígeno del aire?",
+                options: ["Los riñones", "Los pulmones", "El estómago", "Los huesos"],
+                correct: 1,
+                feedback: "¡Genial! Los pulmones absorben el oxígeno."
+              }
+            ]
+          }
+        ]
+      },
+      ciencias_sociales: {
+        id: "ciencias_sociales",
+        title: "El Planeta Tierra y la Sociedad",
+        shortTitle: "Ciencias Sociales",
+        icon: "🌍",
+        themeColor: "from-sky-500 to-cyan-600",
+        accentColor: "#0284c7",
+        badge: "Geógrafo Curioso",
+        description: "¡El Sistema Solar, la Luna, el relieve y los ríos de España!",
+        topics: [
+          {
+            id: "g3_s1",
+            title: "La Tierra, el Sol y la Luna",
+            icon: "🌙",
+            explanation: {
+              intro: "La Tierra es el tercer planeta del Sistema Solar y gira sobre sí misma y alrededor del Sol.",
+              sections: [
+                {
+                  heading: "Movimientos de la Tierra",
+                  body: "• Rotación: Gira sobre sí misma en 24 horas (produce el DÍA y la NOCHE).\n• Traslación: Gira alrededor del Sol en 365 días (1 año) y da lugar a las 4 ESTACIONES.",
+                  visual: "Rotación = Día/Noche | Traslación = Año y Estaciones"
+                }
+              ],
+              tip: "¡La Luna es el satélite natural de la Tierra y tiene 4 fases (nueva, creciente, llena y menguante)!"
+            },
+            minigame: {
+              type: "matching",
+              instruction: "Empareja cada movimiento de la Tierra:",
+              pairs: [
+                { a: "Rotación (24 horas)", b: "Origina el Día y la Noche" },
+                { a: "Traslación (365 días)", b: "Origina las 4 Estaciones" },
+                { a: "La Luna", b: "Satélite natural de la Tierra" }
+              ]
+            },
+            test: [
+              {
+                question: "¿Cuánto tarda la Tierra en dar una vuelta completa sobre sí misma?",
+                options: ["1 hora", "24 horas (1 día)", "365 días", "1 mes"],
+                correct: 1,
+                feedback: "¡Eso es! 24 horas, lo que crea el día y la noche."
+              }
+            ]
+          }
+        ]
+      },
+      ingles: {
+        id: "ingles",
+        title: "English Adventure 3rd Grade",
+        shortTitle: "Inglés",
+        icon: "🇬🇧",
+        themeColor: "from-rose-500 to-pink-600",
+        accentColor: "#e11d48",
+        badge: "English Star 3",
+        description: "¡Days of the week, months, food, sports and present simple!",
+        topics: [
+          {
+            id: "g3_i1",
+            title: "Days of the Week & Sports",
+            icon: "⚽",
+            explanation: {
+              intro: "Let's learn the days of the week and popular sports in English!",
+              sections: [
+                {
+                  heading: "Days of the Week",
+                  body: "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday!",
+                  visual: "Monday to Sunday"
+                },
+                {
+                  heading: "Sports & Hobbies",
+                  body: "Football, basketball, swimming, cycling, tennis, dancing.",
+                  visual: "I play football | I swim"
+                }
+              ],
+              tip: "Remember: Days of the week in English ALWAYS start with a capital letter (Monday, Friday)!"
+            },
+            minigame: {
+              type: "matching",
+              instruction: "Match the English day with Spanish:",
+              pairs: [
+                { a: "Monday", b: "Lunes" },
+                { a: "Friday", b: "Viernes" },
+                { a: "Sunday", b: "Domingo" },
+                { a: "Wednesday", b: "Miércoles" }
+              ]
+            },
+            test: [
+              {
+                question: "What day comes after Tuesday?",
+                options: ["Monday", "Wednesday", "Friday", "Sunday"],
+                correct: 1,
+                feedback: "Great! Monday, Tuesday, WEDNESDAY!"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+
+  4: {
+    grade: 4,
+    name: "4º de Primaria",
+    age: "9-10 años",
+    icon: "🧭",
+    color: "#8b5cf6",
+    tagline: "¡Fracciones, decimales, relieve y energía!",
+    subjects: {
+      matematicas: {
+        id: "matematicas",
+        title: "Matemáticas Avanzadas",
+        shortTitle: "Matemáticas",
+        icon: "🔢",
+        themeColor: "from-amber-400 to-orange-500",
+        accentColor: "#f59e0b",
+        badge: "Maestro de Fracciones",
+        description: "¡Fracciones, números decimales, operaciones combinadas y geometría!",
+        topics: [
+          {
+            id: "g4_m1",
+            title: "Las Fracciones y sus Términos",
+            icon: "🍕",
+            explanation: {
+              intro: "Una fracción representa partes de una unidad dividida en trozos iguales.",
+              sections: [
+                {
+                  heading: "Numerador y Denominador",
+                  body: "• Numerador (arriba): Cuántas partes coges.\n• Denominador (abajo): En cuántas partes se divide el total.\nEjemplo: 3/4 de pizza = La pizza tiene 4 trozos y te comes 3.",
+                  visual: "Numerador: 3 / Denominador: 4"
+                }
+              ],
+              tip: "1/2 es la mitad, 1/3 es un tercio y 1/4 es un cuarto."
+            },
+            minigame: {
+              type: "matching",
+              instruction: "Empareja cada fracción con su significado:",
+              pairs: [
+                { a: "1/2", b: "La mitad" },
+                { a: "1/4", b: "Un cuarto" },
+                { a: "3/4", b: "Tres cuartos" },
+                { a: "2/2", b: "La unidad entera (1)" }
+              ]
+            },
+            test: [
+              {
+                question: "En la fracción 2/5, ¿cuál es el DENOMINADOR?",
+                options: ["2", "5", "7", "3"],
+                correct: 1,
+                feedback: "¡Exacto! El denominador es el número de abajo (5)."
+              },
+              {
+                question: "Si divides una tarta en 8 trozos iguales y te comes 3, ¿qué fracción te has comido?",
+                options: ["3/8", "8/3", "5/8", "3/5"],
+                correct: 0,
+                feedback: "¡Muy bien! 3 trozos de 8 = 3/8."
+              }
+            ]
+          }
+        ]
+      },
+      lengua: {
+        id: "lengua",
+        title: "Lengua y Comunicación",
+        shortTitle: "Lengua Castellana",
+        icon: "📚",
+        themeColor: "from-blue-500 to-indigo-600",
+        accentColor: "#3b82f6",
+        badge: "Escritor Creativo",
+        description: "¡Pronombres personales, adverbios, prefijos y sufijos, y reglas de acentuación!",
+        topics: [
+          {
+            id: "g4_l1",
+            title: "Los Pronombres Personales",
+            icon: "👥",
+            explanation: {
+              intro: "Los pronombres personales sustituyen a los nombres para no repetirlos.",
+              sections: [
+                {
+                  heading: "Singular y Plural",
+                  body: "• 1ª persona: Yo (singular) / Nosotros, nosotras (plural)\n• 2ª persona: Tú, usted (singular) / Vosotros, vosotras, ustedes (plural)\n• 3ª persona: Él, ella (singular) / Ellos, ellas (plural)",
+                  visual: "Yo, Tú, Él ➡️ Nosotros, Vosotros, Ellos"
+                }
+              ],
+              tip: "En vez de decir 'María y Lucas juegan', decimos 'Ellos juegan'."
+            },
+            minigame: {
+              type: "classification",
+              instruction: "Clasifica según la persona gramatical:",
+              categories: [
+                { id: "p1", name: "1ª Persona (Yo / Nosotros)" },
+                { id: "p2", name: "2ª Persona (Tú / Vosotros)" },
+                { id: "p3", name: "3ª Persona (Él / Ellos)" }
+              ],
+              items: [
+                { id: "pr1", text: "Yo", category: "p1" },
+                { id: "pr2", text: "Tú", category: "p2" },
+                { id: "pr3", text: "Ella", category: "p3" },
+                { id: "pr4", text: "Nosotros", category: "p1" },
+                { id: "pr5", text: "Vosotras", category: "p2" },
+                { id: "pr6", text: "Ellos", category: "p3" }
+              ]
+            },
+            test: [
+              {
+                question: "¿Qué pronombre sustituye a 'Mi hermana y yo'?",
+                options: ["Ellos", "Nosotras", "Vosotras", "Tú"],
+                correct: 1,
+                feedback: "¡Perfecto! Al incluirme a mí, somos 'Nosotras'."
+              }
+            ]
+          }
+        ]
+      },
+      ciencias_naturales: {
+        id: "ciencias_naturales",
+        title: "Ciencias de la Naturaleza",
+        shortTitle: "Ciencias Naturales",
+        icon: "🌿",
+        themeColor: "from-emerald-500 to-green-600",
+        accentColor: "#10b981",
+        badge: "Guardián Ecológico",
+        description: "¡La energía, las fuerzas, la función de relación y los 5 reinos de seres vivos!",
+        topics: [
+          {
+            id: "g4_n1",
+            title: "Fuentes de Energía: Renovables y No Renovables",
+            icon: "⚡",
+            explanation: {
+              intro: "La energía hace que las cosas funcionen y se transformen.",
+              sections: [
+                {
+                  heading: "Energías Renovables",
+                  body: "No se agotan y cuidan el planeta: Solar (sol), Eólica (viento), Hidráulica (agua).",
+                  visual: "☀️ Solar | 💨 Eólica | 💧 Hidráulica"
+                },
+                {
+                  heading: "Energías No Renovables",
+                  body: "Existen en cantidades limitadas y contaminan más: Petróleo, carbón, gas natural.",
+                  visual: "🛢️ Petróleo | ⛽ Gas"
+                }
+              ],
+              tip: "¡La energía ni se crea ni se destruye, solo se transforma!"
+            },
+            minigame: {
+              type: "classification",
+              instruction: "¿Es una fuente de energía Renovable o No Renovable?",
+              categories: [
+                { id: "ren", name: "Renovable (Limpia) ☀️" },
+                { id: "noren", name: "No Renovable (Se agota) 🛢️" }
+              ],
+              items: [
+                { id: "e1", text: "Luz del Sol (Solar)", category: "ren" },
+                { id: "e2", text: "Carbón fósil", category: "noren" },
+                { id: "e3", text: "Viento (Eólica)", category: "ren" },
+                { id: "e4", text: "Gasolina (Petróleo)", category: "noren" }
+              ]
+            },
+            test: [
+              {
+                question: "¿Cuál de estas energías es RENOVABLE y no se agota?",
+                options: ["El petróleo", "La energía solar", "El carbón", "El gas butano"],
+                correct: 1,
+                feedback: "¡Excelente! El sol es una fuente inagotable de energía limpia."
+              }
+            ]
+          }
+        ]
+      },
+      ciencias_sociales: {
+        id: "ciencias_sociales",
+        title: "Geografía de España",
+        shortTitle: "Ciencias Sociales",
+        icon: "🌍",
+        themeColor: "from-sky-500 to-cyan-600",
+        accentColor: "#0284c7",
+        badge: "Explorador Ibérico",
+        description: "¡Las Comunidades Autónomas, los ríos, el relieve y los sectores económicos!",
+        topics: [
+          {
+            id: "g4_s1",
+            title: "Las Comunidades Autónomas de España",
+            icon: "🗺️",
+            explanation: {
+              intro: "España se organiza en 17 Comunidades Autónomas y 2 Ciudades Autónomas (Ceuta y Melilla).",
+              sections: [
+                {
+                  heading: "Organización Territorial",
+                  body: "Cada comunidad tiene su Estatuto de Autonomía, su parlamento y sus provincias.",
+                  visual: "17 Comunidades + Ceuta y Melilla"
+                }
+              ],
+              tip: "¡España tiene dos archipiélagos: las Islas Baleares en el mar Mediterráneo y las Islas Canarias en el océano Atlántico!"
+            },
+            minigame: {
+              type: "matching",
+              instruction: "Empareja cada Comunidad con su capital:",
+              pairs: [
+                { a: "Andalucía", b: "Sevilla" },
+                { a: "Cataluña", b: "Barcelona" },
+                { a: "Galicia", b: "Santiago de Compostela" },
+                { a: "Comunidad de Madrid", b: "Madrid" }
+              ]
+            },
+            test: [
+              {
+                question: "¿Cuántas Comunidades Autónomas tiene España?",
+                options: ["10", "17", "25", "50"],
+                correct: 1,
+                feedback: "¡Correcto! 17 Comunidades Autónomas y 2 Ciudades Autónomas."
+              }
+            ]
+          }
+        ]
+      },
+      ingles: {
+        id: "ingles",
+        title: "English Club 4th Grade",
+        shortTitle: "Inglés",
+        icon: "🇬🇧",
+        themeColor: "from-rose-500 to-pink-600",
+        accentColor: "#e11d48",
+        badge: "English Explorer 4",
+        description: "¡Daily routines, telling the time, weather and present continuous!",
+        topics: [
+          {
+            id: "g4_i1",
+            title: "Daily Routines & Telling the Time",
+            icon: "⏰",
+            explanation: {
+              intro: "What do you do every day? Let's describe your day in English!",
+              sections: [
+                {
+                  heading: "Daily Actions",
+                  body: "Wake up, have breakfast, brush my teeth, go to school, do homework, sleep.",
+                  visual: "I wake up at 7 o'clock"
+                }
+              ],
+              tip: "Use 'at' for hours: 'at eight o'clock', 'at half past two'."
+            },
+            minigame: {
+              type: "matching",
+              instruction: "Match routine in English with Spanish:",
+              pairs: [
+                { a: "Have breakfast", b: "Desayunar" },
+                { a: "Go to school", b: "Ir al colegio" },
+                { a: "Brush teeth", b: "Lavarse los dientes" },
+                { a: "Do homework", b: "Hacer los deberes" }
+              ]
+            },
+            test: [
+              {
+                question: "How do you say 'Me despierto' in English?",
+                options: ["I sleep", "I wake up", "I eat", "I run"],
+                correct: 1,
+                feedback: "Super! 'I wake up' means me despierto."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+
+  5: {
+    grade: 5,
+    name: "5º de Primaria",
+    age: "10-11 años",
+    icon: "🎓",
+    color: "#0284c7",
+    tagline: "¡Historia, la célula, porcentajes y gramática avanzada!",
+    subjects: {
+      matematicas: {
+        id: "matematicas",
+        title: "Matemáticas de 5º",
+        shortTitle: "Matemáticas",
+        icon: "🔢",
+        themeColor: "from-amber-400 to-orange-500",
+        accentColor: "#f59e0b",
+        badge: "Científico Numérico",
+        description: "¡Múltiplos y divisores, porcentajes, operaciones con fracciones y áreas de polígonos!",
+        topics: [
+          {
+            id: "g5_m1",
+            title: "Múltiplos, Divisores y Números Primos",
+            icon: "➗",
+            explanation: {
+              intro: "Los múltiplos se obtienen multiplicando y los divisores dividen de forma exacta.",
+              sections: [
+                {
+                  heading: "¿Qué es un número primo?",
+                  body: "Un número es PRIMO si solo tiene 2 divisores: el 1 y él mismo (2, 3, 5, 7, 11, 13...). Si tiene más divisores, es COMPUESTO.",
+                  visual: "Primos: 2, 3, 5, 7, 11, 13"
+                }
+              ],
+              tip: "¡El número 2 es el ÚNICO número primo que es par!"
+            },
+            minigame: {
+              type: "classification",
+              instruction: "¿Es un Número Primo o Número Compuesto?",
+              categories: [
+                { id: "primo", name: "Número Primo (Solo divisible por 1 y sí mismo)" },
+                { id: "compuesto", name: "Número Compuesto" }
+              ],
+              items: [
+                { id: "np1", text: "7", category: "primo" },
+                { id: "np2", text: "12", category: "compuesto" },
+                { id: "np3", text: "11", category: "primo" },
+                { id: "np4", text: "15", category: "compuesto" },
+                { id: "np5", text: "13", category: "primo" },
+                { id: "np6", text: "20", category: "compuesto" }
+              ]
+            },
+            test: [
+              {
+                question: "¿Cuál de estos números es PRIMO?",
+                options: ["9", "13", "15", "21"],
+                correct: 1,
+                feedback: "¡Genial! 13 solo se puede dividir entre 1 y 13."
+              }
+            ]
+          }
+        ]
+      },
+      lengua: {
+        id: "lengua",
+        title: "Lengua Castellana y Literatura",
+        shortTitle: "Lengua Castellana",
+        icon: "📚",
+        themeColor: "from-blue-500 to-indigo-600",
+        accentColor: "#3b82f6",
+        badge: "Analista de Letras",
+        description: "¡Tiempos verbales del indicativo, preposiciones, conjunciones y figuras literarias!",
+        topics: [
+          {
+            id: "g5_l1",
+            title: "Las Preposiciones y Conjunciones",
+            icon: "🔗",
+            explanation: {
+              intro: "Son palabras invariables que sirven para unir palabras u oraciones.",
+              sections: [
+                {
+                  heading: "La lista de las Preposiciones",
+                  body: "a, ante, bajo, cabe, con, contra, de, desde, durante, en, entre, hacia, hasta, mediante, para, por, según, sin, so, sobre, tras, versus y vía.",
+                  visual: "a, ante, bajo, con, contra, de, desde..."
+                }
+              ],
+              tip: "¡Aprende la lista con ritmo como una canción para que nunca se te olvide!"
+            },
+            minigame: {
+              type: "bubble_hunter",
+              instruction: "Toca solo las palabras que son PREPOSICIONES:",
+              bubbles: [
+                { text: "desde", correct: true },
+                { text: "perro", correct: false },
+                { text: "hacia", correct: true },
+                { text: "saltar", correct: false },
+                { text: "sobre", correct: true },
+                { text: "entre", correct: true }
+              ]
+            },
+            test: [
+              {
+                question: "En la frase 'Fuimos con mis primos al cine', ¿cuál es la preposición?",
+                options: ["fuimos", "con", "primos", "cine"],
+                correct: 1,
+                feedback: "¡Exacto! 'Con' es una preposición."
+              }
+            ]
+          }
+        ]
+      },
+      ciencias_naturales: {
+        id: "ciencias_naturales",
+        title: "Ciencias de la Naturaleza",
+        shortTitle: "Ciencias Naturales",
+        icon: "🌿",
+        themeColor: "from-emerald-500 to-green-600",
+        accentColor: "#10b981",
+        badge: "Microbiólogo",
+        description: "¡La célula animal y vegetal, fotosíntesis, circuitos eléctricos y materia!",
+        topics: [
+          {
+            id: "g5_n1",
+            title: "La Célula: Unidad Básica de la Vida",
+            icon: "🔬",
+            explanation: {
+              intro: "Todos los seres vivos estamos formados por células microscópicas.",
+              sections: [
+                {
+                  heading: "Partes de la Célula",
+                  body: "• Membrana: La envoltura que protege y controla lo que entra y sale.\n• Citoplasma: El líquido interior con los orgánulos.\n• Núcleo: El cerebro de la célula que guarda el ADN.",
+                  visual: "Membrana | Citoplasma | Núcleo"
+                }
+              ],
+              tip: "¡Las células vegetales tienen además pared celular rígida y cloroplastos verdes para la fotosíntesis!"
+            },
+            minigame: {
+              type: "matching",
+              instruction: "Empareja cada parte celular con su función:",
+              pairs: [
+                { a: "Núcleo", b: "Contiene el material genético (ADN)" },
+                { a: "Membrana", b: "Envoltura protectora" },
+                { a: "Cloroplastos", b: "Hacen la fotosíntesis en plantas" }
+              ]
+            },
+            test: [
+              {
+                question: "¿Cuál es la parte de la célula que contiene la información genética (ADN)?",
+                options: ["El núcleo", "La pared", "La vacuola", "El citoplasma"],
+                correct: 0,
+                feedback: "¡Muy bien! El núcleo dirige la célula."
+              }
+            ]
+          }
+        ]
+      },
+      ciencias_sociales: {
+        id: "ciencias_sociales",
+        title: "Historia y Sociedad",
+        shortTitle: "Ciencias Sociales",
+        icon: "🏛️",
+        themeColor: "from-sky-500 to-cyan-600",
+        accentColor: "#0284c7",
+        badge: "Historiador",
+        description: "¡Prehistoria, Edad Antigua (Romanos, Celtas, Íberos) y demografía!",
+        topics: [
+          {
+            id: "g5_s1",
+            title: "La Prehistoria y las Edades de la Historia",
+            icon: "🗿",
+            explanation: {
+              intro: "La Historia se divide en grandes etapas a través del tiempo.",
+              sections: [
+                {
+                  heading: "Las Grandes Edades",
+                  body: "1. Prehistoria: Paleolítico, Neolítico y Edad de los Metales (hasta la invención de la escritura).\n2. Edad Antigua: Grandes civilizaciones (Grecia, Roma).\n3. Edad Media: Castillos, caballeros y Al-Ándalus.\n4. Edad Moderna: Descubrimientos e inventos.\n5. Edad Contemporánea: Desde la Revolución Francesa hasta hoy.",
+                  visual: "Prehistoria ➡️ Antigua ➡️ Media ➡️ Moderna ➡️ Contemporánea"
+                }
+              ],
+              tip: "¡La invención de la ESCRITURA marca el paso de la Prehistoria a la Historia!"
+            },
+            minigame: {
+              type: "sorting",
+              instruction: "Ordena cronológicamente las Edades de la Historia (de más antigua a más moderna):",
+              items: [
+                { id: "e1", text: "Prehistoria", order: 1 },
+                { id: "e2", text: "Edad Antigua", order: 2 },
+                { id: "e3", text: "Edad Media", order: 3 },
+                { id: "e4", text: "Edad Moderna", order: 4 }
+              ]
+            },
+            test: [
+              {
+                question: "¿Qué gran invento marca el final de la Prehistoria y el inicio de la Historia?",
+                options: ["La rueda", "La escritura", "La televisión", "El teléfono"],
+                correct: 1,
+                feedback: "¡Exacto! El nacimiento de la escritura (hace más de 5.000 años)."
+              }
+            ]
+          }
+        ]
+      },
+      ingles: {
+        id: "ingles",
+        title: "English Master 5th Grade",
+        shortTitle: "Inglés",
+        icon: "🇬🇧",
+        themeColor: "from-rose-500 to-pink-600",
+        accentColor: "#e11d48",
+        badge: "English Master 5",
+        description: "¡Past simple (regular & irregular verbs), comparatives & superlatives!",
+        topics: [
+          {
+            id: "g5_i1",
+            title: "Past Simple: Regular & Irregular Verbs",
+            icon: "⏳",
+            explanation: {
+              intro: "To talk about finished actions in the past, we use the Past Simple.",
+              sections: [
+                {
+                  heading: "Regular Verbs (+ed)",
+                  body: "Play ➡️ Played, Walk ➡️ Walked, Watch ➡️ Watched.",
+                  visual: "Play + ed = Played"
+                },
+                {
+                  heading: "Irregular Verbs (special forms)",
+                  body: "Go ➡️ Went, Eat ➡️ Ate, Have ➡️ Had, See ➡️ Saw.",
+                  visual: "Go ➡️ Went | Eat ➡️ Ate"
+                }
+              ],
+              tip: "Yesterday, last week and two days ago are time markers of past simple!"
+            },
+            minigame: {
+              type: "matching",
+              instruction: "Match present with past simple form:",
+              pairs: [
+                { a: "Go", b: "Went" },
+                { a: "Eat", b: "Ate" },
+                { a: "Play", b: "Played" },
+                { a: "See", b: "Saw" }
+              ]
+            },
+            test: [
+              {
+                question: "What is the past simple form of 'GO'?",
+                options: ["Goed", "Went", "Gone", "Going"],
+                correct: 1,
+                feedback: "Excellent! 'Went' is the past simple of go."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+
+  6: {
+    grade: 6,
+    name: "6º de Primaria",
+    age: "11-12 años",
+    icon: "👑",
+    color: "#e11d48",
+    tagline: "¡El gran reto final hacia la ESO!",
+    subjects: {
+      matematicas: {
+        id: "matematicas",
+        title: "Matemáticas de 6º",
+        shortTitle: "Matemáticas",
+        icon: "🔢",
+        themeColor: "from-amber-400 to-orange-500",
+        accentColor: "#f59e0b",
+        badge: "Genio de Primaria",
+        description: "¡Números enteros positivos y negativos, potencias, raíces cuadradas, probabilidad y porcentajes!",
+        topics: [
+          {
+            id: "g6_m1",
+            title: "Los Números Enteros (+ y -)",
+            icon: "🌡️",
+            explanation: {
+              intro: "Los números enteros incluyen los positivos (+), el cero (0) y los negativos (-).",
+              sections: [
+                {
+                  heading: "¿Dónde usamos números negativos?",
+                  body: "• Temperatura bajo cero: -5 ºC.\n• Plantas subterráneas de un parking: -1, -2.\n• Deber dinero: -20 €.",
+                  visual: "... -3, -2, -1, 0, +1, +2, +3 ..."
+                }
+              ],
+              tip: "¡En la recta numérica, cuanto más a la derecha está un número, MAYOR es!"
+            },
+            minigame: {
+              type: "bubble_hunter",
+              instruction: "Toca los números que son MENORES que cero (Negativos):",
+              bubbles: [
+                { text: "-4", correct: true },
+                { text: "+5", correct: false },
+                { text: "-10", correct: true },
+                { text: "0", correct: false },
+                { text: "-1", correct: true },
+                { text: "+12", correct: false }
+              ]
+            },
+            test: [
+              {
+                question: "¿Qué número es mayor: -3 o +1?",
+                options: ["-3", "+1", "Son iguales", "Ninguno"],
+                correct: 1,
+                feedback: "¡Exacto! Cualquier número positivo es mayor que uno negativo."
+              },
+              {
+                question: "Si el termómetro marca 2 ºC y la temperatura baja 5 grados, ¿qué temperatura hará?",
+                options: ["-3 ºC", "3 ºC", "-5 ºC", "7 ºC"],
+                correct: 0,
+                feedback: "¡Muy bien! 2 - 5 = -3 ºC."
+              }
+            ]
+          }
+        ]
+      },
+      lengua: {
+        id: "lengua",
+        title: "Lengua Castellana y Sintaxis",
+        shortTitle: "Lengua Castellana",
+        icon: "📚",
+        themeColor: "from-blue-500 to-indigo-600",
+        accentColor: "#3b82f6",
+        badge: "Maestro Sintáctico",
+        description: "¡Sujeto y predicado, complemento directo e indirecto, textos periodísticos y análisis completo!",
+        topics: [
+          {
+            id: "g6_l1",
+            title: "Sintaxis: Sujeto, Predicado y Complementos",
+            icon: "📝",
+            explanation: {
+              intro: "La oración se compone de Sujeto (quién realiza la acción) y Predicado (lo que hace).",
+              sections: [
+                {
+                  heading: "Complemento Directo (CD)",
+                  body: "Recibe directamente la acción del verbo. Se sustituye por lo, la, los, las.\nEjemplo: 'Lucas compra manzanas' ➡️ 'Lucas LAS compra' (manzanas = CD).",
+                  visual: "Lucas [S] compra [V] manzanas [CD]"
+                }
+              ],
+              tip: "¡Para encontrar el sujeto, cambia el número del verbo! Si el verbo pasa a plural, el sujeto también cambia obligatoriamente."
+            },
+            minigame: {
+              type: "classification",
+              instruction: "Identifica en la frase: 'El capitán navega el barco':",
+              categories: [
+                { id: "suj", name: "Sujeto (¿Quién?)" },
+                { id: "pred", name: "Predicado (Acción y complementos)" }
+              ],
+              items: [
+                { id: "s1", text: "El capitán", category: "suj" },
+                { id: "s2", text: "navega el barco", category: "pred" }
+              ]
+            },
+            test: [
+              {
+                question: "En la oración 'Sofía lee un libro interesante', ¿cuál es el COMPLEMENTO DIRECTO (CD)?",
+                options: ["Sofía", "lee", "un libro interesante", "interesante"],
+                correct: 2,
+                feedback: "¡Perfecto! 'Sofía LO lee' ➡️ 'un libro interesante' es el CD."
+              }
+            ]
+          }
+        ]
+      },
+      ciencias_naturales: {
+        id: "ciencias_naturales",
+        title: "Ciencias de la Naturaleza",
+        shortTitle: "Ciencias Naturales",
+        icon: "🌿",
+        themeColor: "from-emerald-500 to-green-600",
+        accentColor: "#10b981",
+        badge: "Futuro Científico",
+        description: "¡Reproducción humana, sistema nervioso y neuronas, electromagnetismo y sostenibilidad!",
+        topics: [
+          {
+            id: "g6_n1",
+            title: "El Sistema Nervioso y las Neuronas",
+            icon: "🧠",
+            explanation: {
+              intro: "El sistema nervioso coordina todas las funciones de nuestro cuerpo y procesa la información.",
+              sections: [
+                {
+                  heading: "Las Neuronas",
+                  body: "Son células especializadas en transmitir impulsos eléctricos ultrarrápidos a través de dendritas y axones.",
+                  visual: "Neuronas = Red de comunicación"
+                }
+              ],
+              tip: "¡El cerebro consume aproximadamente el 20% de la energía de todo tu cuerpo!"
+            },
+            minigame: {
+              type: "matching",
+              instruction: "Empareja cada elemento del sistema nervioso:",
+              pairs: [
+                { a: "Cerebro", b: "Controla pensamientos y memoria" },
+                { a: "Médula espinal", b: "Conduce señales y reflejos" },
+                { a: "Neurona", b: "Célula nerviosa conductora" }
+              ]
+            },
+            test: [
+              {
+                question: "¿Cómo se llaman las células especializadas del sistema nervioso?",
+                options: ["Glóbulos rojos", "Neuronas", "Bacterias", "Plaquetas"],
+                correct: 1,
+                feedback: "¡Eso es! Las neuronas transmiten los impulsos nerviosos."
+              }
+            ]
+          }
+        ]
+      },
+      ciencias_sociales: {
+        id: "ciencias_sociales",
+        title: "España y la Unión Europea",
+        shortTitle: "Ciencias Sociales",
+        icon: "🇪🇺",
+        themeColor: "from-sky-500 to-cyan-600",
+        accentColor: "#0284c7",
+        badge: "Ciudadano Europeo",
+        description: "¡Edad Media, Edad Moderna, la Constitución de 1978 y las instituciones de la Unión Europea!",
+        topics: [
+          {
+            id: "g6_s1",
+            title: "La Unión Europea y sus Instituciones",
+            icon: "🇪🇺",
+            explanation: {
+              intro: "La Unión Europea (UE) es una organización económica y política formada por países democráticos de Europa.",
+              sections: [
+                {
+                  heading: "Instituciones Clave",
+                  body: "• Parlamento Europeo: Representa a los ciudadanos y aprueba leyes.\n• Comisión Europea: Propone leyes y gestiona presupuestos.\n• Tribunal de Justicia: Garantiza el cumplimiento de las leyes.",
+                  visual: "Moneda común: El Euro (€)"
+                }
+              ],
+              tip: "¡El lema de la Unión Europea es 'Unida en la diversidad' y su bandera tiene 12 estrellas doradas en círculo!"
+            },
+            minigame: {
+              type: "matching",
+              instruction: "Empareja cada institución europea:",
+              pairs: [
+                { a: "Parlamento Europeo", b: "Elegido por los ciudadanos" },
+                { a: "Banco Central Europeo (BCE)", b: "Gestiona el Euro (€)" },
+                { a: "Bandera de la UE", b: "12 estrellas doradas en círculo" }
+              ]
+            },
+            test: [
+              {
+                question: "¿Cuál es la moneda oficial compartida por muchos países de la Unión Europea?",
+                options: ["El dólar", "El euro (€)", "La libra", "El peso"],
+                correct: 1,
+                feedback: "¡Exacto! El euro es la moneda compartida de la Eurozona."
+              }
+            ]
+          }
+        ]
+      },
+      ingles: {
+        id: "ingles",
+        title: "English Champion 6th Grade",
+        shortTitle: "Inglés",
+        icon: "🇬🇧",
+        themeColor: "from-rose-500 to-pink-600",
+        accentColor: "#e11d48",
+        badge: "English Champion 6",
+        description: "¡Future with will/going to, present perfect, modal verbs and reading comprehension!",
+        topics: [
+          {
+            id: "g6_i1",
+            title: "The Future: Will & Going to",
+            icon: "🔮",
+            explanation: {
+              intro: "To talk about the future, we use 'will' for predictions and 'going to' for plans.",
+              sections: [
+                {
+                  heading: "Be going to (Plans)",
+                  body: "I am going to visit my grandparents this weekend.",
+                  visual: "Plan: am/is/are + going to + verb"
+                },
+                {
+                  heading: "Will (Predictions & spontaneous decisions)",
+                  body: "It will rain tomorrow. / I will help you!",
+                  visual: "Will + verb"
+                }
+              ],
+              tip: "Use 'going to' when you have already decided or have clear evidence!"
+            },
+            minigame: {
+              type: "matching",
+              instruction: "Match the future sentences:",
+              pairs: [
+                { a: "I am going to study", b: "Voy a estudiar (Plan)" },
+                { a: "It will be sunny", b: "Hará sol (Predicción)" },
+                { a: "We will win", b: "Ganaremos" }
+              ]
+            },
+            test: [
+              {
+                question: "Choose the correct form for an intentional plan: 'I ______ travel to London next month.'",
+                options: ["am going to", "will to", "did", "was"],
+                correct: 0,
+                feedback: "Great! 'I am going to travel' expresses a future plan."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
 };
+
+// Asignación de compatibilidad directa
+let CURRICULUM_DATA = CURRICULUM_GRADES[2].subjects;

@@ -25,6 +25,10 @@ const PETS_SHOP = [
 class AventuraApp {
   constructor() {
     this.state = this.loadState();
+    const activeG = this.state.currentGrade || 2;
+    if (typeof CURRICULUM_GRADES !== 'undefined' && CURRICULUM_GRADES[activeG]) {
+      CURRICULUM_DATA = CURRICULUM_GRADES[activeG].subjects;
+    }
     this.currentSubject = null;
     this.currentTopic = null;
     this.activeScreen = "home";
@@ -41,6 +45,8 @@ class AventuraApp {
     const defaultState = {
       name: "Super Estudiante",
       avatar: "astronauta",
+      currentGrade: 2,
+      hasChosenGradeInitially: false,
       pet: null,
       coins: 0,
       xp: 0,
@@ -239,6 +245,13 @@ class AventuraApp {
     }
     if (coinsEl) coinsEl.textContent = this.state.coins;
     if (levelEl) levelEl.textContent = `Nivel ${this.getLevel()} • ${this.getLevelTitle()}`;
+    
+    // Actualizar indicador de curso en la cabecera
+    const gradeObj = (typeof CURRICULUM_GRADES !== 'undefined') ? CURRICULUM_GRADES[this.state.currentGrade || 2] : null;
+    const gradeNameEl = document.getElementById("header-grade-name");
+    const gradeIconEl = document.getElementById("header-grade-icon");
+    if (gradeNameEl && gradeObj) gradeNameEl.textContent = gradeObj.name;
+    if (gradeIconEl && gradeObj) gradeIconEl.textContent = gradeObj.icon;
     if (petEl) {
       if (this.state.pet) {
         const petObj = PETS_SHOP.find(p => p.id === this.state.pet);
@@ -294,6 +307,9 @@ class AventuraApp {
       case "diploma":
         this.renderDiploma(appEl);
         break;
+      case "grade_selector":
+        this.renderGradeSelector(appEl);
+        break;
       default:
         this.renderHome(appEl);
     }
@@ -303,6 +319,11 @@ class AventuraApp {
      PANTALLA DE INICIO (HOME / SELECTOR DE ASIGNATURAS)
      ======================================================== */
   renderHome(container) {
+    if (!this.state.hasChosenGradeInitially) {
+      return this.renderGradeSelector(container);
+    }
+
+    const currentGradeObj = (typeof CURRICULUM_GRADES !== 'undefined') ? CURRICULUM_GRADES[this.state.currentGrade || 2] : { name: "2º de Primaria", icon: "🚀" };
     const subjects = Object.values(CURRICULUM_DATA);
     let totalCompleted = Object.keys(this.state.completedTopics).length;
     let totalTopics = 25; // 5 materias * 5 temas
@@ -315,7 +336,7 @@ class AventuraApp {
           <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
             <div class="text-center md:text-left space-y-2">
               <div class="inline-flex items-center gap-2 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-sm font-bold">
-                <span>🌟 2º de Educación Primaria</span>
+                <span>${currentGradeObj.icon} ${currentGradeObj.name}</span>
                 <span>•</span>
                 <span>Temario Oficial LOMLOE</span>
               </div>
@@ -327,8 +348,11 @@ class AventuraApp {
                 <button onclick="app.speakText('¡Hola ${this.state.name}! Elige una asignatura para comenzar a jugar y aprender')" class="btn-bubble bg-white/30 hover:bg-white/40 text-white px-4 py-2 rounded-2xl text-sm">
                   🔊 Escuchar bienvenida
                 </button>
+                <button onclick="app.openGradeSelector()" class="btn-bubble bg-white text-indigo-900 hover:bg-indigo-50 px-4 py-2 rounded-2xl text-sm font-black shadow-lg border border-indigo-200">
+                  🎒 Cambiar Curso (1º a 6º)
+                </button>
                 <button onclick="app.navigateTo('diploma')" class="btn-bubble bg-yellow-300 hover:bg-yellow-400 text-yellow-950 px-4 py-2 rounded-2xl text-sm font-extrabold shadow-lg">
-                  📜 Ver mi Diploma Oficial
+                  📜 Ver mi Diploma
                 </button>
               </div>
             </div>
@@ -1534,7 +1558,7 @@ class AventuraApp {
 
           <p class="text-slate-700 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
             Por haber superado con valentía <strong class="text-slate-900">${totalCompleted} temas</strong> del curso de
-            <strong>2º de Educación Primaria</strong>, habiendo acumulado <strong>⭐ ${totalStars} Estrellas del Saber</strong>
+            <strong>${CURRICULUM_GRADES[this.state.currentGrade || 2].name}</strong>, habiendo acumulado <strong>⭐ ${totalStars} Estrellas del Saber</strong>
             en Matemáticas, Lengua, Ciencias y la aventura en Inglés.
           </p>
 
@@ -1545,10 +1569,88 @@ class AventuraApp {
               <span class="text-xs text-slate-500">Fecha: ${dateStr}</span>
             </div>
             <div class="border-t-2 border-slate-400 pt-2 max-w-xs mx-auto">
-              <span class="font-black text-indigo-800 text-sm">Claustro de Sabios de 2º Primaria</span>
+              <span class="font-black text-indigo-800 text-sm">Claustro de Sabios de Primaria</span>
               <p class="text-xs text-slate-500 italic">Sello Oficial de Excelencia</p>
             </div>
           </div>
+        </div>
+      </div>
+    `;
+
+    container.innerHTML = html;
+  }
+
+  // Selector de Curso: ¿En qué curso estás? (1º a 6º de Primaria)
+  openGradeSelector() {
+    sounds.click();
+    this.navigateTo("grade_selector");
+  }
+
+  setGrade(gradeNum) {
+    if (!CURRICULUM_GRADES || !CURRICULUM_GRADES[gradeNum]) return;
+    this.state.currentGrade = gradeNum;
+    this.state.hasChosenGradeInitially = true;
+    CURRICULUM_DATA = CURRICULUM_GRADES[gradeNum].subjects;
+    this.saveState();
+    sounds.levelUp();
+    this.triggerConfetti();
+    this.showToast(`¡Has cambiado a ${CURRICULUM_GRADES[gradeNum].name}! 🎒`, "success");
+    this.navigateTo("home");
+  }
+
+  renderGradeSelector(container) {
+    const grades = Object.values(CURRICULUM_GRADES);
+    let html = `
+      <div class="space-y-6 max-w-4xl mx-auto animate-pop">
+        <div class="flex items-center justify-between">
+          <button onclick="app.navigateTo('home')" class="btn-bubble bg-white text-slate-700 px-4 py-2 rounded-2xl text-sm font-bold shadow border border-slate-200">
+            ⬅️ Volver a Inicio
+          </button>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">Educación Primaria LOMLOE</span>
+          </div>
+        </div>
+
+        <div class="text-center space-y-3 bg-gradient-to-r from-amber-400 via-pink-500 to-indigo-600 p-8 rounded-3xl text-white shadow-xl">
+          <span class="text-6xl animate-float inline-block">🎒</span>
+          <h1 class="text-3xl md:text-5xl font-black">¿En qué curso estás?</h1>
+          <p class="text-base md:text-lg text-white/90 max-w-2xl mx-auto">
+            Elige tu curso de 1º a 6º de Primaria. Todas las asignaturas, explicaciones, minijuegos y tests se adaptarán automáticamente a tu nivel:
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    `;
+
+    grades.forEach(g => {
+      const isSelected = this.state.currentGrade === g.grade;
+      html += `
+        <div onclick="app.setGrade(${g.grade})"
+             class="card-game p-6 transition-all duration-300 transform hover:-translate-y-2 cursor-pointer border-t-8 flex flex-col justify-between ${
+               isSelected ? "ring-4 ring-indigo-500 shadow-2xl bg-indigo-50/50" : "hover:shadow-xl"
+             }"
+             style="border-top-color: ${g.color};">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-5xl p-3 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm">${g.icon}</span>
+              ${isSelected ? '<span class="text-xs font-black bg-indigo-600 text-white px-2.5 py-1 rounded-full">¡Tu Curso Actual!</span>' : ''}
+            </div>
+            <div>
+              <h3 class="text-2xl font-black text-slate-800">${g.name}</h3>
+              <span class="text-xs font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full inline-block mt-1">${g.age}</span>
+              <p class="text-sm text-slate-600 mt-2 font-medium">${g.tagline}</p>
+            </div>
+          </div>
+          <div class="pt-5 mt-4 border-t border-slate-100">
+            <button class="w-full btn-bubble text-white py-2.5 rounded-xl font-black text-sm shadow" style="background-color: ${g.color};">
+              ${isSelected ? "¡Continuar en este curso! 🚀" : `Elegir ${g.name} ✏️`}
+            </button>
+          </div>
+        </div>
+      `;
+    });
+
+    html += `
         </div>
       </div>
     `;
