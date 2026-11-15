@@ -1,0 +1,190 @@
+/* ESTILOS DE LA AVENTURA DE 2º DE PRIMARIA */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap');
+
+:root {
+  --font-main: 'Fredoka', 'Nunito', system-ui, sans-serif;
+  --bg-gradient: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 50%, #fef3c7 100%);
+  --mate-color: #f59e0b;
+  --lengua-color: #3b82f6;
+  --ciencias-color: #10b981;
+  --sociales-color: #0284c7;
+  --ingles-color: #e11d48;
+}
+
+* {
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-main);
+  background: var(--bg-gradient);
+  min-height: 100vh;
+  color: #1e293b;
+  overflow-x: hidden;
+}
+
+/* Scrollbar amigable */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.05);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Animaciones */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(1deg); }
+}
+
+@keyframes pulseSlow {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+.animate-pop {
+  animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-wiggle {
+  animation: wiggle 0.6s ease-in-out infinite;
+}
+
+/* Botones estilo goma / 3D para niños */
+.btn-bubble {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.btn-bubble:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.15);
+}
+
+.btn-bubble:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
+}
+
+/* Tarjetas con sombras suaves */
+.card-game {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+}
+
+/* Efectos para selección y juego */
+.item-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: grab;
+}
+
+.item-card:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+.item-card:active {
+  cursor: grabbing;
+}
+
+/* Burbujas interactivas flotantes */
+.bubble-btn {
+  border-radius: 9999px;
+  background: white;
+  border: 3px solid #38bdf8;
+  box-shadow: 0 8px 15px -3px rgba(56, 189, 248, 0.3), inset 0 -4px 0 #bae6fd;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.bubble-btn:hover {
+  transform: scale(1.08) translateY(-4px);
+  border-color: #0284c7;
+}
+
+.bubble-btn.selected-correct {
+  background: #dcfce7 !important;
+  border-color: #22c55e !important;
+  transform: scale(0.95);
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.6) !important;
+}
+
+.bubble-btn.selected-wrong {
+  background: #fee2e2 !important;
+  border-color: #ef4444 !important;
+  animation: wiggle 0.4s ease;
+}
+
+/* Canvas para el confeti */
+#confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Botón de lectura por voz */
+.speak-btn {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #e0e7ff;
+  color: #4f46e5;
+  transition: all 0.2s;
+}
+
+.speak-btn:hover {
+  background: #c7d2fe;
+  transform: scale(1.1);
+}
+
+.speak-btn:active {
+  transform: scale(0.95);
+}
+
+/* Modal y diálogos */
+.modal-overlay {
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+}
