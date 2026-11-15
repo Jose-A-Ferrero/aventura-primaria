@@ -5,6 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Aventura del Saber - 2º de Primaria</title>
   <meta name="description" content="Juego interactivo y gamificado para 2º de Primaria con explicaciones, minijuegos y tests según currículo LOMLOE.">
+  
+  <!-- Configuración PWA (Progressive Web App) -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4f46e5">
+  <meta name="mobile-web-app-capable" content="yes">
+  
+  <!-- Configuración específica para iPhone y iPad (iOS) -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Aventura 2º">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
   
   <!-- Motor Tailwind CSS (compatible tanto en local como al subirlo a internet) -->
@@ -35,8 +48,13 @@
         </div>
       </div>
 
-      <!-- Estado del Jugador (Monedas, Mascota, Avatar, Sonido) -->
+      <!-- Estado del Jugador (Monedas, Mascota, Avatar, Sonido, Instalar PWA) -->
       <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Botón de Instalar App PWA (se muestra automáticamente si es compatible) -->
+        <button id="pwa-install-btn" class="hidden btn-bubble bg-emerald-500 hover:bg-emerald-600 text-white px-3 py-1.5 rounded-2xl font-black text-xs shadow flex items-center gap-1.5 animate-pulse" title="Instalar en tu Tablet o Móvil">
+          <span>📲</span> <span class="hidden md:inline">Instalar App</span>
+        </button>
+
         <!-- Monedas -->
         <div onclick="app.navigateTo('shop')" class="flex items-center gap-1.5 bg-amber-100 hover:bg-amber-200 text-amber-900 px-3 py-1.5 rounded-2xl font-black text-sm cursor-pointer transition-all shadow-sm">
           <span>🪙</span>
@@ -91,5 +109,55 @@
   <script src="data.js"></script>
   <script src="sound.js"></script>
   <script src="app.js"></script>
+
+  <!-- Registro y Gestión de la PWA (Progressive Web App) -->
+  <script>
+    // Registro del Service Worker para funcionamiento Offline
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then((reg) => console.log('PWA Service Worker listo con alcance:', reg.scope))
+          .catch((err) => console.warn('PWA Service Worker no pudo registrarse:', err));
+      });
+    }
+
+    // Gestión del botón de instalación de la PWA
+    let deferredPrompt = null;
+    const pwaBtn = document.getElementById('pwa-install-btn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevenir el banner por defecto del navegador
+      e.preventDefault();
+      deferredPrompt = e;
+      if (pwaBtn) {
+        pwaBtn.classList.remove('hidden');
+      }
+    });
+
+    if (pwaBtn) {
+      pwaBtn.addEventListener('click', async () => {
+        if (!deferredPrompt) {
+          // Si estamos en iPhone/iPad Safari, explicar cómo instalar
+          const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+          if (isIOS) {
+            alert('Para instalar en tu iPhone o iPad:\n1. Pulsa el botón "Compartir" de Safari (el cuadrado con la flecha hacia arriba ⬆️).\n2. Selecciona "Añadir a la pantalla de inicio" 📲.');
+          } else {
+            alert('Puedes instalar esta aplicación desde el menú de opciones de tu navegador pulsando "Instalar aplicación" o "Añadir a pantalla de inicio" 📲.');
+          }
+          return;
+        }
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log('Resultado de instalación:', outcome);
+        deferredPrompt = null;
+        pwaBtn.classList.add('hidden');
+      });
+    }
+
+    window.addEventListener('appinstalled', () => {
+      console.log('¡PWA instalada con éxito!');
+      if (pwaBtn) pwaBtn.classList.add('hidden');
+    });
+  </script>
 </body>
 </html>
